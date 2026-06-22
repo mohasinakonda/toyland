@@ -57,6 +57,7 @@ export default function CheckoutPage() {
             productId: item.id,
             quantity: item.quantity,
           })),
+          shippingCost,
         }),
       });
 

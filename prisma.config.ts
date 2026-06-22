@@ -3,12 +3,26 @@
 import "dotenv/config";
 import { defineConfig } from "prisma/config";
 
+/** Supabase migrations need session pooler (5432), not transaction pooler (6543). */
+function getMigrationUrl(): string {
+  const pooler = process.env.DATABASE_URL;
+  if (!pooler) {
+    throw new Error("DATABASE_URL is required for Prisma migrations");
+  }
+
+  if (pooler.includes("pooler.supabase.com")) {
+    return pooler.replace(":6543/", ":5432/");
+  }
+
+  return process.env.DIRECT_URL || pooler;
+}
+
 export default defineConfig({
   schema: "prisma/schema.prisma",
   migrations: {
     path: "prisma/migrations",
   },
   datasource: {
-    url: process.env["DATABASE_URL"],
+    url: getMigrationUrl(),
   },
 });

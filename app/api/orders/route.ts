@@ -48,7 +48,7 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { customerName, phone, address, items } = body;
+    const { customerName, phone, address, items, shippingCost = 0 } = body;
 
     // Validation
     if (!customerName || !phone || !address || !items || !Array.isArray(items) || items.length === 0) {
@@ -114,7 +114,7 @@ export async function POST(request: Request) {
           phone: phone.trim(),
           address: address.trim(),
           status: "PLACED",
-          total: orderTotal,
+          total: orderTotal + (typeof shippingCost === "number" ? shippingCost : 0),
         },
       });
 

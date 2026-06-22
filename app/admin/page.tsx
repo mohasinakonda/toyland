@@ -58,7 +58,6 @@ interface DashboardMetrics {
   };
   recentOrders: Order[];
 }
-
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState<"overview" | "orders" | "products">("overview");
 
@@ -255,31 +254,28 @@ export default function AdminDashboard() {
         <div className="flex gap-2 bg-white p-1.5 rounded-2xl border-2 border-zinc-100 self-stretch sm:self-auto justify-between">
           <button
             onClick={() => setActiveTab("overview")}
-            className={`px-4 py-2 text-xs sm:text-sm font-extrabold rounded-xl transition-all ${
-              activeTab === "overview"
+            className={`px-4 py-2 text-xs sm:text-sm font-extrabold rounded-xl transition-all ${activeTab === "overview"
                 ? "bg-[#2d3748] text-white"
                 : "text-zinc-500 hover:bg-zinc-100"
-            }`}
+              }`}
           >
             📊 Stats
           </button>
           <button
             onClick={() => setActiveTab("orders")}
-            className={`px-4 py-2 text-xs sm:text-sm font-extrabold rounded-xl transition-all ${
-              activeTab === "orders"
+            className={`px-4 py-2 text-xs sm:text-sm font-extrabold rounded-xl transition-all ${activeTab === "orders"
                 ? "bg-[#2d3748] text-white"
                 : "text-zinc-500 hover:bg-zinc-100"
-            }`}
+              }`}
           >
             📦 Orders
           </button>
           <button
             onClick={() => setActiveTab("products")}
-            className={`px-4 py-2 text-xs sm:text-sm font-extrabold rounded-xl transition-all ${
-              activeTab === "products"
+            className={`px-4 py-2 text-xs sm:text-sm font-extrabold rounded-xl transition-all ${activeTab === "products"
                 ? "bg-[#2d3748] text-white"
                 : "text-zinc-500 hover:bg-zinc-100"
-            }`}
+              }`}
           >
             🧸 Catalog
           </button>

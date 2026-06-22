@@ -1,6 +1,6 @@
 import { PrismaClient } from "@/app/generated/prisma/client";
-import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
-import path from "path";
+import { PrismaPg } from "@prisma/adapter-pg";
+import pg from "pg";
 
 declare global {
   // eslint-disable-next-line no-var
@@ -8,8 +8,10 @@ declare global {
 }
 
 const getPrisma = () => {
-  const dbPath = path.join(process.cwd(), "dev.db");
-  const adapter = new PrismaBetterSqlite3({ url: `file:${dbPath}` });
+  const pool = new pg.Pool({
+    connectionString: process.env.DATABASE_URL,
+  });
+  const adapter = new PrismaPg(pool);
   return new PrismaClient({ adapter });
 };
 
