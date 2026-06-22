@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, useState, Suspense, ChangeEvent } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Search, SlidersHorizontal, Trash2, ShoppingCart } from "lucide-react";
 import { ProductCard } from "@/components/products/card";
@@ -34,9 +34,11 @@ function ProductListContent() {
 
   // State matching search params
   const [search, setSearch] = useState("");
+  const [searchDebouncedValue, setSearchDebouncedValue] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(searchParams.get("category") || "");
   const [selectedAge, setSelectedAge] = useState("");
   const [maxPrice, setMaxPrice] = useState(6000);
+  const [timeoutFn, setTimeoutFn] = useState<NodeJS.Timeout | null>(null)
 
   // Loaded data
   const [products, setProducts] = useState<Product[]>([]);
@@ -88,7 +90,17 @@ function ProductListContent() {
     setMaxPrice(6000);
     router.push("/products");
   };
-  console.log(loading)
+  const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
+
+    const value = event.target.value;
+    setSearchDebouncedValue(value);
+    if (timeoutFn) {
+      clearTimeout(timeoutFn)
+    }
+    setTimeoutFn(setTimeout(() => {
+      setSearch(value)
+    }, 800))
+  }
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 flex flex-col md:flex-row gap-8">
       {/* 1. Filters Sidebar (Desktop) / Header (Mobile) */}
@@ -111,8 +123,8 @@ function ProductListContent() {
           <div className="relative">
             <input
               type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              value={searchDebouncedValue}
+              onChange={handleSearch}
               placeholder="Search toys..."
               className="w-full pl-10 pr-4 py-2 border-2 border-zinc-200 rounded-full focus:outline-none focus:border-sky-blue text-sm font-medium"
             />
@@ -199,7 +211,7 @@ function ProductListContent() {
         {loading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[...Array(6)].map((_, i) => (
-              <div key={i} className="animate-pulse bg-zinc-100 rounded-3xl h-96"></div>
+              <div key={i} className="animate-pulse bg-zinc-100 rounded-3xl h-96 w-50"></div>
             ))}
           </div>
         ) : products.length === 0 ? (
