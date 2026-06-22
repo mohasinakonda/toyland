@@ -1,26 +1,113 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-baloo), system-ui, -apple-system, sans-serif;
+  --font-baloo: var(--font-baloo);
+  
+  --color-sky-blue: #38bdf8;
+  --color-sky-blue-hover: #0ea5e9;
+  --color-toy-yellow: #facc15;
+  --color-toy-yellow-hover: #eab308;
+  --color-toy-orange: #fb923c;
+  --color-toy-orange-hover: #f97316;
+  --color-toy-green: #4ade80;
+  --color-toy-green-hover: #22c55e;
+  --color-toy-purple: #c084fc;
+  --color-toy-purple-hover: #a855f7;
+  
+  --color-toy-bg: #fffdf6; /* Playful, warm background */
+  --color-toy-card: #ffffff;
+  --color-toy-text: #2d3748;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --font-baloo: "Baloo Da 2", system-ui, sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-baloo), system-ui, -apple-system, sans-serif;
+  background-color: var(--color-toy-bg);
+  color: var(--color-toy-text);
+  overflow-x: hidden;
+}
+
+/* 3D Bubbly Text Outlines */
+.bubbly-text-pink {
+  text-shadow: 
+    -3px -3px 0 #fff,  
+     3px -3px 0 #fff,
+    -3px  3px 0 #fff,
+     3px  3px 0 #fff,
+    -4px  0px 0 #fff,
+     4px  0px 0 #fff,
+     0px -4px 0 #fff,
+     0px  4px 0 #fff,
+     0px  6px 0px #e04b7b;
+}
+
+.bubbly-text-green {
+  text-shadow: 
+    -3px -3px 0 #fff,  
+     3px -3px 0 #fff,
+    -3px  3px 0 #fff,
+     3px  3px 0 #fff,
+    -4px  0px 0 #fff,
+     4px  0px 0 #fff,
+     0px -4px 0 #fff,
+     0px  4px 0 #fff,
+     0px  6px 0px #22c55e;
+}
+
+.bubbly-text-yellow {
+  text-shadow: 
+    -3px -3px 0 #fff,  
+     3px -3px 0 #fff,
+    -3px  3px 0 #fff,
+     3px  3px 0 #fff,
+    -4px  0px 0 #fff,
+     4px  0px 0 #fff,
+     0px -4px 0 #fff,
+     0px  4px 0 #fff,
+     0px  6px 0px #d97706;
+}
+
+.bubbly-text-blue {
+  text-shadow: 
+    -4px -4px 0 #fff,  
+     4px -4px 0 #fff,
+    -4px  4px 0 #fff,
+     4px  4px 0 #fff,
+    -5px  0px 0 #fff,
+     5px  0px 0 #fff,
+     0px -5px 0 #fff,
+     0px  5px 0 #fff,
+     0px  8px 0px #1e40af;
+}
+
+/* Custom bouncy buttons */
+.btn-bouncy {
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s, box-shadow 0.2s;
+}
+.btn-bouncy:hover {
+  transform: scale(1.05);
+}
+.btn-bouncy:active {
+  transform: scale(0.95);
+}
+
+/* Custom rounded playful scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f7fafc;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 10px;
+  border: 2px solid #f7fafc;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #cbd5e0;
 }
